@@ -1,38 +1,12 @@
 "use client";
 
 import React from "react";
-import { MapPin, ArrowUpRight, Building2, CheckCircle2 } from "lucide-react";
+import { MapPin } from "lucide-react";
+import { useSiteData } from "@/context/SiteDataContext";
 
 export const SelectedProjects: React.FC = () => {
-  const projects = [
-    {
-      title: "Parkwood Circle Corporate Campus",
-      location: "Atlanta, GA (Cumberland Submarket)",
-      sector: "Commercial Headquarters & Executive Suites",
-      role: "Lead Developer & Operating Partner",
-      scope: "Strategic multi-tenant commercial office asset with corporate conference amenities and modern infrastructure.",
-      status: "Active / Stabilized",
-      year: "2018 – Present",
-    },
-    {
-      title: "Southern Logistics Distribution Hub",
-      location: "Georgia Regional Transport Corridor",
-      sector: "Industrial Logistics & Freight Transfer",
-      role: "Sponsor & Co-Developer",
-      scope: "Regional supply chain warehouse and freight distribution staging facility serving interstate freight corridors.",
-      status: "Completed / Leased",
-      year: "2021 – 2023",
-    },
-    {
-      title: "Civic Transit-Oriented Mixed-Use",
-      location: "Metropolitan Atlanta",
-      sector: "Mixed-Use Residential & Ground Retail",
-      role: "Capital Advisor & Equity Structurer",
-      scope: "Underwriting and municipal syndication for mixed-income housing, ground-floor retail, and community plazas.",
-      status: "Pre-Development / Permitting",
-      year: "2024 – 2026",
-    },
-  ];
+  const { siteData } = useSiteData();
+  const projects = siteData.projects || [];
 
   return (
     <section id="projects" className="py-24 sm:py-32 bg-white border-b border-[#e5dfd5]">
@@ -54,7 +28,7 @@ export const SelectedProjects: React.FC = () => {
         <div className="space-y-8">
           {projects.map((proj, idx) => (
             <div
-              key={proj.title}
+              key={proj.id}
               className="border border-slate-200 bg-[#FAF8F5] p-8 sm:p-10 hover:border-[#b59357] transition-all"
             >
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
@@ -63,10 +37,10 @@ export const SelectedProjects: React.FC = () => {
                 <div className="lg:col-span-5 space-y-3">
                   <div className="flex items-center gap-2">
                     <span className="text-xs font-mono font-bold text-[#b59357]">
-                      0{idx + 1}.
+                      {proj.number || `0${idx + 1}`}.
                     </span>
                     <span className="text-[10px] uppercase tracking-[0.2em] font-bold text-slate-500">
-                      {proj.sector}
+                      {proj.category}
                     </span>
                   </div>
                   <h3 className="text-2xl sm:text-3xl font-serif font-bold text-[#0e1726] leading-tight">
@@ -81,7 +55,7 @@ export const SelectedProjects: React.FC = () => {
                 {/* Right: Architectural Case Facts (7 cols) */}
                 <div className="lg:col-span-7 space-y-4 lg:border-l lg:border-slate-200 lg:pl-8">
                   <p className="text-slate-700 text-sm leading-relaxed font-normal">
-                    {proj.scope}
+                    {proj.description}
                   </p>
 
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-slate-200/80 text-xs">
@@ -95,7 +69,7 @@ export const SelectedProjects: React.FC = () => {
                     </div>
                     <div>
                       <span className="text-slate-400 block text-[10px] uppercase">Timeline:</span>
-                      <span className="font-semibold text-slate-800">{proj.year}</span>
+                      <span className="font-semibold text-slate-800">{proj.completion}</span>
                     </div>
                   </div>
                 </div>

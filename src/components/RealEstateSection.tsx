@@ -1,35 +1,12 @@
 "use client";
 
 import React from "react";
-import { ArrowRight, MapPin, CheckCircle2, Building, Layers } from "lucide-react";
+import { ArrowRight, MapPin } from "lucide-react";
+import { useSiteData } from "@/context/SiteDataContext";
 
 export const RealEstateSection: React.FC = () => {
-  const developments = [
-    {
-      name: "The Parkwood Executive Corridor",
-      location: "Atlanta, Georgia",
-      assetType: "Commercial Office & Corporate HQ",
-      role: "Sponsor & Master Developer",
-      scope: "Class-A Office Assets, Multi-Tenant Campus",
-      status: "Operational / Core Holding",
-    },
-    {
-      name: "Piedmont Urban Residential",
-      location: "Metro Atlanta Submarket",
-      assetType: "Multi-Family Residential",
-      role: "Lead Developer & Equity Partner",
-      scope: "180+ Luxury Multi-Family Units, Ground-Floor Retail",
-      status: "In Development / Site Infrastructure",
-    },
-    {
-      name: "Summit Logistics & Commerce Center",
-      location: "Southeast Regional Hub",
-      assetType: "Industrial Logistics & Distribution",
-      role: "Co-Developer & Capital Advisor",
-      scope: "240,000 SF Strategic Distribution Facility",
-      status: "Completed / Stabilized",
-    },
-  ];
+  const { siteData } = useSiteData();
+  const developments = siteData.realEstate || [];
 
   return (
     <section id="real-estate" className="py-24 sm:py-32 bg-white border-b border-[#e5dfd5]">
@@ -62,7 +39,7 @@ export const RealEstateSection: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {developments.map((dev) => (
             <div
-              key={dev.name}
+              key={dev.id}
               className="border border-slate-200 p-8 bg-[#FAF8F5] flex flex-col justify-between hover:border-[#b59357] transition-colors"
             >
               <div className="space-y-6">
@@ -72,10 +49,10 @@ export const RealEstateSection: React.FC = () => {
                     <span>{dev.location}</span>
                   </div>
                   <h3 className="text-xl font-serif font-bold text-[#0e1726] leading-snug">
-                    {dev.name}
+                    {dev.title}
                   </h3>
                   <span className="text-xs uppercase tracking-wider text-[#b59357] font-semibold block mt-1">
-                    {dev.assetType}
+                    {dev.category}
                   </span>
                 </div>
 

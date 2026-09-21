@@ -1,9 +1,13 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { ArrowUp } from "lucide-react";
+import { useSiteData } from "@/context/SiteDataContext";
 
 export const Footer: React.FC = () => {
+  const { siteData } = useSiteData();
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -19,17 +23,17 @@ export const Footer: React.FC = () => {
           <div className="md:col-span-5 space-y-4">
             <div className="border-l-2 border-[#b59357] pl-3">
               <span className="font-serif text-xl font-bold tracking-wider text-white block">
-                JUBOH
+                {siteData.brand.name}
               </span>
               <span className="text-[9px] uppercase tracking-[0.25em] text-[#b59357] font-semibold block mt-0.5">
-                Companies International
+                {siteData.brand.tagline}
               </span>
             </div>
             <p className="text-slate-400 text-xs leading-relaxed max-w-sm">
               Building an Exceptional Future, Together. A privately held enterprise advancing real estate development, capital strategy, public infrastructure, and philanthropic initiatives.
             </p>
             <div className="pt-2 text-[11px] text-slate-500">
-              Atlanta Corporate Campus • 1000 Parkwood Circle SE, Suite 900, Atlanta, GA 30339
+              {siteData.brand.address}
             </div>
           </div>
 
@@ -56,7 +60,7 @@ export const Footer: React.FC = () => {
               <li><a href="#leadership" className="hover:text-white transition-colors">Executive Leadership</a></li>
               <li><a href="#projects" className="hover:text-white transition-colors">Case Studies</a></li>
               <li><a href="#news" className="hover:text-white transition-colors">Press Bureau</a></li>
-              <li><a href="#contact" className="hover:text-white transition-colors">Client Portal</a></li>
+              <li><Link href="/admin" className="text-[#b59357] hover:underline transition-colors font-semibold">Executive CMS Portal</Link></li>
               <li><a href="#contact" className="hover:text-white transition-colors">Compliance & Ethics</a></li>
             </ul>
           </div>

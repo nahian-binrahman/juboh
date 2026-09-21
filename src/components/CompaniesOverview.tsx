@@ -1,51 +1,19 @@
 "use client";
 
 import React from "react";
-import { Building2, TrendingUp, ShieldCheck, GraduationCap, Heart, ArrowUpRight } from "lucide-react";
+import { Building2, TrendingUp, ShieldCheck, Heart, ArrowUpRight } from "lucide-react";
+import { useSiteData } from "@/context/SiteDataContext";
 
 export const CompaniesOverview: React.FC = () => {
-  const companies = [
-    {
-      id: "real-estate",
-      title: "JUBOH Real Estate Development",
-      category: "Development & Asset Management",
-      description:
-        "Direct investment, master-planned developments, commercial acquisitions, and multi-family residential communities built for lasting community value.",
-      focus: "Acquisitions • Ground-Up Construction • Asset Repositioning",
-      link: "#real-estate",
-      icon: Building2,
-    },
-    {
-      id: "advisory",
-      title: "JUBOH Capital & Advisory",
-      category: "Strategic Advisory & Capital Markets",
-      description:
-        "Providing corporate growth strategy, capital structuring, equity/debt advisory, and institutional transaction counsel for mid-market enterprises.",
-      focus: "Capital Structuring • M&A Advisory • Institutional Partnerships",
-      link: "#advisory",
-      icon: TrendingUp,
-    },
-    {
-      id: "government",
-      title: "JUBOH Government Solutions",
-      category: "Public Sector & Infrastructure",
-      description:
-        "Contracting, procurement management, and operational logistics for federal, state, municipal, and educational institutions with verified past performance.",
-      focus: "Federal Logistics • Municipal Procurement • Compliance",
-      link: "#government-contracting",
-      icon: ShieldCheck,
-    },
-    {
-      id: "foundation",
-      title: "The JUBOH Family Foundation",
-      category: "Philanthropy & Social Impact",
-      description:
-        "A private 501(c)(3) charitable endowment advancing economic mobility, minority entrepreneurship, youth educational initiatives, and Ubuntu community equity.",
-      focus: "Endowments • Workforce Initiatives • Social Equity",
-      link: "#foundation",
-      icon: Heart,
-    },
-  ];
+  const { siteData } = useSiteData();
+  const companies = siteData.companies || [];
+
+  const getIcon = (iconName: string, idx: number) => {
+    if (iconName === "building" || idx === 0) return Building2;
+    if (iconName === "trending-up" || idx === 1) return TrendingUp;
+    if (iconName === "shield" || idx === 2) return ShieldCheck;
+    return Heart;
+  };
 
   return (
     <section id="companies" className="py-20 sm:py-28 bg-[#FAF8F5] border-b border-[#e5dfd5]">
@@ -64,8 +32,8 @@ export const CompaniesOverview: React.FC = () => {
 
         {/* Operating Companies Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {companies.map((company) => {
-            const Icon = company.icon;
+          {companies.map((company, idx) => {
+            const Icon = getIcon(company.iconName, idx);
             return (
               <div
                 key={company.id}
@@ -74,7 +42,7 @@ export const CompaniesOverview: React.FC = () => {
                 <div>
                   <div className="flex items-center justify-between pb-4 mb-6 border-b border-slate-100">
                     <span className="text-[10px] uppercase tracking-[0.2em] font-bold text-[#b59357]">
-                      {company.category}
+                      {company.sectorBadge}
                     </span>
                     <div className="w-9 h-9 rounded bg-[#FAF8F5] border border-slate-200 flex items-center justify-center text-[#0e1726]">
                       <Icon className="w-4 h-4" />
@@ -92,13 +60,13 @@ export const CompaniesOverview: React.FC = () => {
 
                 <div className="pt-6 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
                   <span className="text-slate-500 font-medium text-[11px]">
-                    {company.focus}
+                    {company.subHighlights}
                   </span>
                   <a
-                    href={company.link}
+                    href={company.linkHref}
                     className="font-bold text-[#0e1726] hover:text-[#b59357] uppercase tracking-wider flex items-center gap-1.5 transition-colors"
                   >
-                    <span>View Capabilities</span>
+                    <span>{company.linkText || "View Capabilities"}</span>
                     <ArrowUpRight className="w-3.5 h-3.5" />
                   </a>
                 </div>

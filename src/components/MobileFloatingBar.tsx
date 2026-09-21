@@ -1,15 +1,18 @@
 "use client";
 
 import React from "react";
-import { Phone, Mail, ArrowUpRight, Send } from "lucide-react";
+import { Phone, ArrowUpRight } from "lucide-react";
+import { useSiteData } from "@/context/SiteDataContext";
 
 export const MobileFloatingBar: React.FC = () => {
+  const { siteData } = useSiteData();
+
   return (
     <aside aria-label="Mobile Actions" className="fixed bottom-0 left-0 right-0 z-40 lg:hidden p-3 bg-[#0a111a]/95 backdrop-blur-xl border-t border-slate-700/80 shadow-[0_-8px_30px_rgba(0,0,0,0.85)]">
       <div className="max-w-md mx-auto flex items-center gap-2.5">
         {/* Direct Call to Corporate Switchboard */}
         <a
-          href="tel:8887268264"
+          href={`tel:${siteData.brand.phoneRaw}`}
           className="p-3 bg-[#131f31] border border-slate-700 text-[#b59357] active:scale-95 transition-transform flex items-center justify-center shrink-0 rounded-sm"
           aria-label="Call Atlanta Corporate Headquarters"
         >

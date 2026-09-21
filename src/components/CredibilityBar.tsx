@@ -1,30 +1,11 @@
 "use client";
 
 import React from "react";
+import { useSiteData } from "@/context/SiteDataContext";
 
 export const CredibilityBar: React.FC = () => {
-  const metrics = [
-    {
-      value: "2015",
-      label: "Year Established",
-      subtext: "Over a decade of enterprise operations",
-    },
-    {
-      value: "$150M+",
-      label: "Portfolio & Scope",
-      subtext: "Real estate and capital advisory projects",
-    },
-    {
-      value: "National",
-      label: "Operating Reach",
-      subtext: "Multi-market footprint & select global hubs",
-    },
-    {
-      value: "501(c)(3)",
-      label: "Community Foundation",
-      subtext: "Endowed humanitarian & education programs",
-    },
-  ];
+  const { siteData } = useSiteData();
+  const metrics = siteData.credibility || [];
 
   return (
     <section className="bg-[#FAF8F5] border-b border-[#e5dfd5] py-10 sm:py-12">
@@ -42,7 +23,7 @@ export const CredibilityBar: React.FC = () => {
                 {item.label}
               </div>
               <p className="text-xs text-slate-600 font-normal leading-relaxed">
-                {item.subtext}
+                {item.description}
               </p>
             </div>
           ))}

@@ -2,8 +2,10 @@
 
 import React, { useState } from "react";
 import { Building2, Phone, Mail, Clock, MapPin, Send, CheckCircle2 } from "lucide-react";
+import { useSiteData } from "@/context/SiteDataContext";
 
 export const ContactSection: React.FC = () => {
+  const { siteData } = useSiteData();
   const [submitted, setSubmitted] = useState(false);
   const [form, setForm] = useState({
     name: "",
@@ -40,7 +42,7 @@ export const ContactSection: React.FC = () => {
         <div className="max-w-3xl mb-16 space-y-4">
           <span className="eyebrow-institutional">Institutional Engagement</span>
           <h2 className="text-3xl sm:text-5xl font-serif text-[#0e1726] tracking-tight">
-            Contact JUBOH Companies International
+            Contact {siteData.brand.name} {siteData.brand.tagline}
           </h2>
           <div className="w-16 h-0.5 bg-[#b59357]" />
           <p className="text-slate-700 text-sm sm:text-base leading-relaxed pt-2">
@@ -60,7 +62,7 @@ export const ContactSection: React.FC = () => {
                 Atlanta Corporate Campus
               </h3>
               <p className="text-xs text-slate-600 mt-1">
-                JUBOH Companies International
+                {siteData.brand.name} {siteData.brand.tagline}
               </p>
             </div>
 
@@ -69,8 +71,7 @@ export const ContactSection: React.FC = () => {
                 <MapPin className="w-4 h-4 text-[#b59357] shrink-0 mt-0.5" />
                 <div>
                   <strong className="text-[#0e1726] block">Physical Location:</strong>
-                  1000 Parkwood Circle SE, Suite 900<br />
-                  Atlanta, Georgia 30339
+                  {siteData.brand.address}
                 </div>
               </div>
 
@@ -87,7 +88,7 @@ export const ContactSection: React.FC = () => {
                 <Phone className="w-4 h-4 text-[#b59357] shrink-0 mt-0.5" />
                 <div>
                   <strong className="text-[#0e1726] block">Telecommunications:</strong>
-                  Global Toll-Free: (888) 726-UBOH (8264)<br />
+                  Global Toll-Free: {siteData.brand.phone}<br />
                   Corporate Switchboard: (800) 214-758<br />
                   Regional Liaison: +1 (404) 618-0503
                 </div>
@@ -97,8 +98,8 @@ export const ContactSection: React.FC = () => {
                 <Mail className="w-4 h-4 text-[#b59357] shrink-0 mt-0.5" />
                 <div>
                   <strong className="text-[#0e1726] block">Official Inquiries:</strong>
-                  <a href="mailto:support@jalenuboh.com" className="text-[#0e1726] hover:text-[#b59357] font-semibold">
-                    support@jalenuboh.com
+                  <a href={`mailto:${siteData.brand.email}`} className="text-[#0e1726] hover:text-[#b59357] font-semibold">
+                    {siteData.brand.email}
                   </a>
                 </div>
               </div>

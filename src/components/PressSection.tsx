@@ -1,29 +1,12 @@
 "use client";
 
 import React from "react";
-import { ExternalLink, Calendar, ArrowRight } from "lucide-react";
+import { Calendar, ArrowRight } from "lucide-react";
+import { useSiteData } from "@/context/SiteDataContext";
 
 export const PressSection: React.FC = () => {
-  const newsItems = [
-    {
-      date: "September 2026",
-      category: "Corporate Announcement",
-      title: "JUBOH Companies Announces Expansion of Commercial Real Estate Acquisition Pipeline in Southeast Markets",
-      source: "Corporate Press Bureau",
-    },
-    {
-      date: "August 2026",
-      category: "Foundation & Community",
-      title: "The JUBOH Family Foundation Pledges Multi-Year Grant Endowment for Urban Entrepreneurship Initiatives",
-      source: "Philanthropy News Journal",
-    },
-    {
-      date: "July 2026",
-      category: "Public Contracting",
-      title: "JUBOH Government Solutions Awarded Facilities Logistics Task Order Across Regional Municipal Facilities",
-      source: "Public Procurement Wire",
-    },
-  ];
+  const { siteData } = useSiteData();
+  const newsItems = siteData.news || [];
 
   return (
     <section id="news" className="py-20 sm:py-28 bg-[#FAF8F5] border-b border-[#e5dfd5]">
@@ -53,24 +36,29 @@ export const PressSection: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {newsItems.map((item) => (
             <article
-              key={item.title}
+              key={item.id}
               className="bg-white border border-slate-200/80 p-8 flex flex-col justify-between hover:border-[#b59357] transition-colors"
             >
               <div className="space-y-3">
                 <div className="flex items-center justify-between text-[11px] text-slate-500 pb-3 border-b border-slate-100">
                   <span className="font-semibold text-[#b59357] uppercase tracking-wider">
-                    {item.category}
+                    {item.source}
                   </span>
                   <span>{item.date}</span>
                 </div>
                 <h3 className="text-base sm:text-lg font-serif font-bold text-[#0e1726] leading-snug">
                   {item.title}
                 </h3>
+                {item.excerpt && (
+                  <p className="text-xs text-slate-600 leading-relaxed font-normal">
+                    {item.excerpt}
+                  </p>
+                )}
               </div>
 
               <div className="pt-6 mt-6 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500 font-medium">
                 <span>{item.source}</span>
-                <ExternalLink className="w-3.5 h-3.5 text-slate-400" />
+                <ArrowRight className="w-3.5 h-3.5 text-[#b59357]" />
               </div>
             </article>
           ))}

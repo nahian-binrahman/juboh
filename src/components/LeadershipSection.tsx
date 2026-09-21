@@ -1,27 +1,11 @@
 "use client";
 
 import React from "react";
-import { ArrowUpRight } from "lucide-react";
+import { useSiteData } from "@/context/SiteDataContext";
 
 export const LeadershipSection: React.FC = () => {
-  const leaders = [
-    {
-      name: "Jalen Uboh",
-      title: "Founder & Chairman of the Board",
-      organization: "JUBOH Companies International",
-      image: "/jalen-uboh.jpg",
-      bio: "Mr. Jalen Uboh is an entrepreneur, real estate developer, and capital advisor with more than a decade of operating experience across commercial real estate, corporate strategy, and public-sector contracting. As Chairman, he directs master-planned acquisitions, institutional capital partnerships, and corporate governance across the JUBOH enterprise portfolio.",
-      responsibilities: "Capital Allocation • Enterprise Strategy • Real Estate Development",
-    },
-    {
-      name: "Anika Carter-Uboh",
-      title: "President & Executive Director",
-      organization: "The JUBOH Family Foundation",
-      image: "/jalen-anika.png",
-      bio: "Mrs. Anika Carter-Uboh serves as President & Executive Director of the JUBOH Family Foundation, leading global philanthropic initiatives, community empowerment programs, and institutional grantmaking. Her executive leadership focuses on youth educational literacy, economic equity, and workforce advancement grounded in the African philosophy of Ubuntu.",
-      responsibilities: "Foundation Governance • Humanitarian Initiatives • Community Partnerships",
-    },
-  ];
+  const { siteData } = useSiteData();
+  const leaders = siteData.leadership || [];
 
   return (
     <section id="leadership" className="py-24 sm:py-32 bg-[#FAF8F5] border-b border-[#e5dfd5]">
@@ -43,7 +27,7 @@ export const LeadershipSection: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {leaders.map((leader) => (
             <div
-              key={leader.name}
+              key={leader.id}
               className="bg-white border border-slate-200 p-8 sm:p-10 flex flex-col justify-between shadow-sm"
             >
               <div>
@@ -51,7 +35,7 @@ export const LeadershipSection: React.FC = () => {
                   {/* Portrait */}
                   <div className="sm:col-span-5 aspect-[4/5] overflow-hidden bg-slate-100 border border-slate-200">
                     <img
-                      src={leader.image}
+                      src={leader.portraitUrl}
                       alt={leader.name}
                       className="w-full h-full object-cover object-top filter grayscale-[15%]"
                     />
@@ -66,17 +50,17 @@ export const LeadershipSection: React.FC = () => {
                       {leader.name}
                     </h3>
                     <p className="text-xs font-semibold text-slate-800">
-                      {leader.title}
+                      {leader.role}
                     </p>
                     <p className="text-[11px] text-slate-500 uppercase tracking-wider">
-                      {leader.organization}
+                      {leader.entity}
                     </p>
                     
                     <div className="pt-4 border-t border-slate-100 text-[11px] text-slate-600">
                       <span className="font-semibold text-slate-800 block text-[10px] uppercase text-slate-400">
                         Primary Scope:
                       </span>
-                      {leader.responsibilities}
+                      Corporate Officer & Strategic Director
                     </div>
                   </div>
                 </div>
