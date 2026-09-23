@@ -105,8 +105,8 @@ export const Hero: React.FC = () => {
           </div>
 
           {/* Right Column: Hero Visual Stack - Mobile-Tuned & Desktop-Elevated */}
-          <div className="lg:col-span-6 xl:col-span-6 relative flex justify-center lg:justify-end items-end h-[340px] sm:h-[440px] lg:h-[490px] xl:h-[530px] order-2 mt-2 lg:mt-0">
-            <div className="relative w-full max-w-[340px] sm:max-w-[460px] lg:max-w-[540px] h-full flex items-end justify-center">
+          <div className="lg:col-span-6 xl:col-span-6 relative flex justify-center lg:justify-end items-end h-[360px] sm:h-[460px] lg:h-[520px] xl:h-[560px] order-2 mt-2 lg:mt-0">
+            <div className="relative w-full max-w-[360px] sm:max-w-[480px] lg:max-w-[560px] h-full flex items-end justify-center">
               
               {/* Layer 1: Gallery Cards Wall in Dark Background */}
               <div className="absolute top-0 inset-x-0 flex justify-between gap-3 sm:gap-4 px-1 sm:px-2 h-[86%] pointer-events-none opacity-55 sm:opacity-65">
@@ -151,18 +151,18 @@ export const Hero: React.FC = () => {
               </div>
 
               {/* Layer 2: Main Subject Portrait (Transparent Cutout Blend) */}
-              <div className="relative z-10 w-[88%] sm:w-[86%] xl:w-[88%] h-[98%] flex items-end transform -translate-y-1 sm:-translate-y-3">
-                <div className="relative w-full h-full">
+              <div className="relative z-10 w-[92%] sm:w-[90%] xl:w-[92%] h-full flex items-end justify-center pt-2 sm:pt-4">
+                <div className="relative w-full h-full flex items-end justify-center">
                   <img
                     src={hero.portraitUrl}
                     alt={hero.founderName}
-                    className="w-full h-full object-contain object-bottom filter drop-shadow-[0_15px_30px_rgba(0,0,0,0.85)]"
+                    className="w-full h-full max-h-full object-contain object-bottom filter drop-shadow-[0_15px_30px_rgba(0,0,0,0.85)]"
                   />
                   {/* Subtle Bottom Fade to Anchor Silhouette */}
-                  <div className="absolute inset-x-0 bottom-0 h-24 sm:h-28 bg-gradient-to-t from-[#070b14] via-[#070b14]/75 to-transparent pointer-events-none" />
+                  <div className="absolute inset-x-0 bottom-0 h-20 sm:h-24 bg-gradient-to-t from-[#070b14] via-[#070b14]/75 to-transparent pointer-events-none" />
 
                   {/* Name badge */}
-                  <div className="absolute bottom-3 sm:bottom-4 right-3 sm:right-4 text-right bg-[#070b14]/85 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-sm border border-slate-700/70 backdrop-blur-md">
+                  <div className="absolute bottom-3 sm:bottom-4 right-2 sm:right-3 text-right bg-[#070b14]/85 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-sm border border-slate-700/70 backdrop-blur-md">
                     <span className="text-[11px] sm:text-[12px] font-serif font-bold text-white block uppercase tracking-wider">
                       {hero.founderName}
                     </span>
