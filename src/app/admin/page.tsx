@@ -250,12 +250,84 @@ export default function AdminDashboardPage() {
         </div>
       </header>
 
+      {/* Executive Quick Stats Strip */}
+      <section className="bg-[#0b121f] border-b border-slate-800/80 px-4 sm:px-8 py-3.5">
+        <div className="max-w-[1600px] mx-auto grid grid-cols-2 md:grid-cols-4 gap-3">
+          <div className="bg-[#0e1726]/80 border border-slate-800 p-3 rounded-xs flex items-center justify-between">
+            <div>
+              <span className="text-[9.5px] uppercase font-mono tracking-wider text-slate-400 block">Operating Scope</span>
+              <span className="text-sm font-bold text-white">$150M+ Documented</span>
+            </div>
+            <div className="w-7 h-7 rounded-sm bg-[#b59357]/15 border border-[#b59357]/30 flex items-center justify-center text-[#b59357]">
+              <TrendingUp className="w-3.5 h-3.5" />
+            </div>
+          </div>
+          <div className="bg-[#0e1726]/80 border border-slate-800 p-3 rounded-xs flex items-center justify-between">
+            <div>
+              <span className="text-[9.5px] uppercase font-mono tracking-wider text-slate-400 block">Operating Divisions</span>
+              <span className="text-sm font-bold text-white">{siteData.companies?.length || 4} Active Sectors</span>
+            </div>
+            <div className="w-7 h-7 rounded-sm bg-blue-500/15 border border-blue-500/30 flex items-center justify-center text-blue-400">
+              <Building2 className="w-3.5 h-3.5" />
+            </div>
+          </div>
+          <div className="bg-[#0e1726]/80 border border-slate-800 p-3 rounded-xs flex items-center justify-between">
+            <div>
+              <span className="text-[9.5px] uppercase font-mono tracking-wider text-slate-400 block">Executive Principals</span>
+              <span className="text-sm font-bold text-white">{siteData.leadership?.length || 2} Leaders Listed</span>
+            </div>
+            <div className="w-7 h-7 rounded-sm bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+              <Users className="w-3.5 h-3.5" />
+            </div>
+          </div>
+          <div className="bg-[#0e1726]/80 border border-slate-800 p-3 rounded-xs flex items-center justify-between">
+            <div>
+              <span className="text-[9.5px] uppercase font-mono tracking-wider text-slate-400 block">System State</span>
+              <span className="text-sm font-bold text-emerald-400">Operational • Live</span>
+            </div>
+            <div className="w-7 h-7 rounded-sm bg-purple-500/15 border border-purple-500/30 flex items-center justify-center text-purple-400">
+              <ShieldCheck className="w-3.5 h-3.5" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Mobile Horizontal Module Switcher */}
+      <div className="lg:hidden bg-[#0a111c] border-b border-slate-800 px-4 py-2.5 overflow-x-auto flex items-center gap-2 no-scrollbar">
+        {[
+          { id: "colors", label: "Colors" },
+          { id: "text", label: "Hero & Text" },
+          { id: "menus", label: "Menus" },
+          { id: "companies", label: "Divisions" },
+          { id: "realestate", label: "Real Estate" },
+          { id: "projects", label: "Case Studies" },
+          { id: "leadership", label: "Leadership" },
+          { id: "media", label: "Media Library" },
+          { id: "advisory", label: "Advisory" },
+          { id: "news", label: "Press" },
+          { id: "backup", label: "Data Backup" },
+        ].map((tab) => (
+          <button
+            key={tab.id}
+            onClick={() => setActiveTab(tab.id as any)}
+            className={`whitespace-nowrap px-3 py-1.5 rounded-xs text-[11px] font-medium transition-all ${
+              activeTab === tab.id
+                ? "bg-[#b59357] text-[#070c14] font-bold shadow"
+                : "bg-[#101927] text-slate-300 border border-slate-800 hover:text-white"
+            }`}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
+
       {/* Main Dashboard Layout */}
       <div className="flex-1 max-w-[1600px] w-full mx-auto px-4 sm:px-8 py-6 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-        {/* Sidebar Nav */}
-        <aside className="lg:col-span-3 bg-[#0e1726] border border-slate-800 rounded-sm p-3 sticky top-20">
-          <div className="text-[10px] uppercase tracking-[0.2em] font-semibold text-slate-400 px-3 py-2">
-            Content Modules
+        {/* Sidebar Nav (Desktop) */}
+        <aside className="hidden lg:block lg:col-span-3 bg-[#0e1726] border border-slate-800 rounded-sm p-3 sticky top-20 shadow-xl">
+          <div className="text-[10px] uppercase tracking-[0.2em] font-semibold text-slate-400 px-3 py-2 flex items-center justify-between">
+            <span>Content Modules</span>
+            <span className="text-[#b59357] font-mono text-[9px]">v2.4</span>
           </div>
           <nav className="space-y-1 text-xs">
             <button

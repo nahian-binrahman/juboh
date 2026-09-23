@@ -16,7 +16,8 @@ export const CompaniesOverview: React.FC = () => {
   };
 
   return (
-    <section id="companies" className="py-20 sm:py-28 bg-[#FAF8F5] border-b border-[#e5dfd5]">
+    <section id="about" className="py-20 sm:py-28 bg-[#FAF8F5] border-b border-[#e5dfd5] scroll-mt-24 relative">
+      <span id="companies" className="absolute -top-24 opacity-0 pointer-events-none" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="max-w-3xl mb-16 space-y-4">
