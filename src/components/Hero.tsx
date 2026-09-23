@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { ArrowRight, ArrowDown } from "lucide-react";
+import { ArrowRight, Play, Award, TrendingUp } from "lucide-react";
 import { useSiteData } from "@/context/SiteDataContext";
 
 export const Hero: React.FC = () => {
@@ -9,105 +9,178 @@ export const Hero: React.FC = () => {
   const hero = siteData.hero;
 
   return (
-    <section className="relative min-h-[90vh] flex items-center bg-[#0e1726] text-white pt-32 sm:pt-40 pb-16 sm:pb-24 border-b border-slate-800">
-      <div className="max-w-[1500px] mx-auto px-5 sm:px-10 lg:px-14 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+    <section className="relative bg-[#070b12] text-white pt-[105px] sm:pt-[115px] pb-5 sm:pb-6 border-b border-slate-800/80 overflow-hidden min-h-[calc(100vh-60px)] lg:h-[calc(100vh)] flex items-center">
+      {/* Ambient background lighting */}
+      <div className="absolute top-0 right-0 w-[450px] h-[450px] bg-amber-500/10 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute -bottom-10 left-10 w-[300px] h-[300px] bg-blue-900/10 rounded-full blur-[90px] pointer-events-none" />
+
+      <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 w-full relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 xl:gap-10 items-center">
           
-          {/* Editorial Content (7 cols on desktop) */}
-          <div className="lg:col-span-7 space-y-6 sm:space-y-8 scroll-reveal">
-            <div className="inline-flex items-center gap-2.5">
-              <span className="w-6 sm:w-8 h-px bg-[#b59357]" />
-              <span className="eyebrow-institutional text-[10px] sm:text-xs">
+          {/* Left Column: Brand, Headline, Copy, Action Button */}
+          <div className="lg:col-span-6 xl:col-span-6 flex flex-col justify-center space-y-3 sm:space-y-3.5">
+            {/* Brand Header */}
+            <div>
+              <div className="inline-flex items-center gap-2">
+                <span className="w-4 h-[2px] bg-[#b59357]" />
+                <span className="text-[11px] sm:text-xs font-extrabold uppercase tracking-[0.22em] text-white">
+                  JALEN UBOH
+                </span>
+              </div>
+              <span className="text-[9.5px] sm:text-[10px] uppercase tracking-[0.16em] text-[#b59357] font-medium block pl-6">
+                {hero.founderTitle}
+              </span>
+            </div>
+
+            {/* Headline */}
+            <h1 className="text-2xl sm:text-3.5xl xl:text-4xl font-serif text-white tracking-tight leading-[1.12]">
+              Building an{" "}
+              <span className="text-[#b59357] italic font-serif">Exceptional Future</span>,
+              <br /> Together.
+            </h1>
+
+            {/* Status Pill Badge */}
+            <div className="inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-[#111927]/90 border border-slate-700/80 w-fit backdrop-blur-sm shadow-sm">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#b59357] opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#b59357]" />
+              </span>
+              <span className="text-[10px] sm:text-[11px] text-slate-300 font-medium tracking-wide">
                 {hero.eyebrow}
               </span>
             </div>
 
-            <div className="space-y-3 sm:space-y-4">
-              <span className="text-[11px] sm:text-xs uppercase tracking-[0.22em] text-slate-300 font-semibold block">
-                {hero.subtitle}
-              </span>
-              <h1 className="text-3xl sm:text-5xl xl:text-6.5xl font-serif text-white tracking-tight leading-[1.12]">
-                {hero.headline}
-              </h1>
-            </div>
-
-            {/* Mobile-Only Portrait Placement (Between headline and description) */}
-            <div className="lg:hidden my-6">
-              <div className="relative border border-slate-700/80 bg-[#131f31] p-2 rounded-sm shadow-xl max-w-xs mx-auto">
-                <div className="relative aspect-[3/4] overflow-hidden bg-slate-900">
-                  <img
-                    src={hero.portraitUrl}
-                    alt={hero.founderName}
-                    className="w-full h-full object-cover object-top"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#09101a]/95 via-transparent to-transparent" />
-                  <div className="absolute bottom-3 left-3 right-3 text-left p-3 bg-[#0e1726]/90 border border-slate-700/80">
-                    <span className="text-sm font-serif font-bold text-white block">
-                      {hero.founderName}
-                    </span>
-                    <span className="text-[9px] uppercase tracking-[0.16em] text-[#b59357] block mt-0.5 font-semibold">
-                      {hero.founderTitle}
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <p className="max-w-2xl text-sm sm:text-base lg:text-lg text-slate-300 font-light leading-relaxed">
+            {/* Description Paragraph */}
+            <p className="max-w-lg text-xs sm:text-[13px] text-slate-300 font-light leading-relaxed">
               {hero.description}
             </p>
 
-            {/* Two CTAs Only (Per PDF Specification) */}
-            <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
+            {/* CTAs */}
+            <div className="pt-0.5 flex flex-wrap items-center gap-3">
               <a
                 href={hero.ctaPrimaryLink}
-                className="px-7 py-3.5 sm:py-4 bg-[#b59357] text-[#0e1726] hover:bg-[#c9a769] font-bold text-xs uppercase tracking-[0.2em] transition-all text-center rounded-sm shadow-md active:scale-98"
+                className="px-6 py-3 bg-[#b59357] hover:bg-[#c9a769] text-[#070b12] font-bold text-[11px] sm:text-xs uppercase tracking-[0.2em] transition-all rounded-xs shadow-lg shadow-[#b59357]/20 active:scale-95 flex items-center gap-2"
               >
-                {hero.ctaPrimaryText}
+                <span>{hero.ctaPrimaryText}</span>
+                <ArrowRight className="w-3.5 h-3.5" />
               </a>
               <a
                 href={hero.ctaSecondaryLink}
-                className="px-7 py-3.5 sm:py-4 border border-slate-600 hover:border-slate-300 text-white font-medium text-xs uppercase tracking-[0.2em] transition-all text-center rounded-sm active:scale-98"
+                className="px-5 py-3 border border-slate-700 hover:border-[#b59357] text-white hover:text-[#b59357] font-semibold text-[11px] sm:text-xs uppercase tracking-[0.16em] transition-all rounded-xs active:scale-95"
               >
                 {hero.ctaSecondaryText}
               </a>
             </div>
 
-            {/* Operating Disciplines Ticker */}
-            <div className="pt-6 sm:pt-8 border-t border-slate-800/80 grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 text-xs text-slate-400">
+            {/* Sector Tickers */}
+            <div className="pt-3 border-t border-slate-800/80 grid grid-cols-2 sm:grid-cols-4 gap-2.5 text-xs text-slate-400">
               {hero.sectors.map((sec) => (
-                <div key={sec.number}>
-                  <span className="text-slate-500 block text-[9px] sm:text-[10px] uppercase tracking-wider">
+                <div key={sec.number} className="group">
+                  <span className="text-[#b59357] block text-[9px] uppercase font-mono tracking-wider">
                     Sector {sec.number}
                   </span>
-                  <span className="text-slate-200 font-semibold text-xs">{sec.title}</span>
+                  <span className="text-slate-200 font-medium text-[11px] group-hover:text-white transition-colors">
+                    {sec.title}
+                  </span>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Desktop Portrait (5 cols - hidden on mobile to avoid duplication) */}
-          <div className="hidden lg:flex lg:col-span-5 justify-end scroll-reveal">
-            <div className="relative w-full max-w-md">
-              <div className="relative border border-slate-700/80 bg-[#131f31] p-3 rounded-sm shadow-2xl">
-                <div className="relative aspect-[3/4] overflow-hidden bg-slate-900">
+          {/* Right Column: Hero Visual Stack Exactly Like Reference */}
+          <div className="lg:col-span-6 xl:col-span-6 relative flex justify-center lg:justify-end items-end h-[340px] sm:h-[390px] lg:h-[430px]">
+            <div className="relative w-full max-w-[500px] h-full flex items-end justify-center">
+              
+              {/* Layer 1: Gallery Cards Wall in Dark Background (like reference background cards) */}
+              <div className="absolute top-2 inset-x-0 flex justify-between gap-3 px-3 h-[72%] pointer-events-none opacity-40">
+                {/* Background Card 1 */}
+                <div className="flex-1 rounded-sm border border-slate-700/60 bg-[#0e1624] overflow-hidden relative shadow-xl">
+                  <img
+                    src="/jalen-anika.png"
+                    alt="Leadership"
+                    className="w-full h-full object-cover filter grayscale contrast-125 opacity-40"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#070b12] via-[#070b12]/50 to-transparent" />
+                  <span className="absolute bottom-2 left-2 text-[8px] font-mono uppercase tracking-widest text-slate-400">
+                    Foundation
+                  </span>
+                </div>
+
+                {/* Background Card 2 */}
+                <div className="flex-1 rounded-sm border border-slate-700/60 bg-[#0e1624] overflow-hidden relative shadow-xl">
+                  <img
+                    src="/jalen-uboh.jpg"
+                    alt="Chairman"
+                    className="w-full h-full object-cover filter grayscale contrast-125 opacity-40"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#070b12] via-[#070b12]/50 to-transparent" />
+                  <span className="absolute bottom-2 left-2 text-[8px] font-mono uppercase tracking-widest text-[#b59357]">
+                    Advisory
+                  </span>
+                </div>
+
+                {/* Background Card 3 */}
+                <div className="flex-1 rounded-sm border border-amber-600/30 bg-[#0e1624] overflow-hidden relative shadow-xl">
+                  <img
+                    src="/jalen-uboh.jpg"
+                    alt="Enterprise"
+                    className="w-full h-full object-cover filter grayscale contrast-125 opacity-40"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#070b12] via-[#070b12]/50 to-transparent" />
+                  <span className="absolute bottom-2 right-2 text-[8px] font-mono uppercase tracking-widest text-slate-300">
+                    Capital
+                  </span>
+                </div>
+              </div>
+
+              {/* Layer 2: Main Subject Portrait (Blending seamlessly at the bottom) */}
+              <div className="relative z-10 w-[78%] sm:w-[74%] h-[92%] flex items-end">
+                <div className="relative w-full h-full overflow-hidden">
                   <img
                     src={hero.portraitUrl}
                     alt={hero.founderName}
-                    className="w-full h-full object-cover object-top filter grayscale-[15%] hover:grayscale-0 transition-all duration-700"
+                    className="w-full h-full object-cover object-top filter grayscale-[5%]"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#09101a]/95 via-[#09101a]/20 to-transparent" />
-                  
-                  <div className="absolute bottom-5 left-5 right-5 text-left p-4 bg-[#0e1726]/95 border border-slate-700/80 backdrop-blur-sm">
-                    <span className="text-base font-serif font-bold text-white block">
+                  {/* Seamless Bottom Gradient Fade into Dark Base */}
+                  <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#070b12] via-[#070b12]/80 to-transparent" />
+                  <div className="absolute inset-y-0 left-0 w-12 bg-gradient-to-r from-[#070b12]/60 to-transparent" />
+                  <div className="absolute inset-y-0 right-0 w-12 bg-gradient-to-l from-[#070b12]/60 to-transparent" />
+
+                  {/* Name badge like the small bottom-right name in reference */}
+                  <div className="absolute bottom-3 right-3 text-right">
+                    <span className="text-[11px] font-serif font-bold text-white block uppercase tracking-wider">
                       {hero.founderName}
                     </span>
-                    <span className="text-[10.5px] uppercase tracking-[0.18em] text-[#b59357] block mt-0.5 font-semibold">
-                      {hero.founderTitle}
+                    <span className="text-[8px] uppercase tracking-widest text-[#b59357] block font-mono">
+                      Chairman
                     </span>
                   </div>
                 </div>
               </div>
+
+              {/* Layer 3: Floating Blurred Glass Depth Badges (Like the play buttons in reference) */}
+              {/* Floating Pill Left */}
+              <div className="absolute top-[28%] -left-3 sm:-left-6 z-20 px-3.5 py-2 rounded-xl bg-white/[0.07] border border-white/15 backdrop-blur-md shadow-2xl flex items-center gap-2.5 transform -rotate-6 pointer-events-none">
+                <div className="w-7 h-7 rounded-lg bg-[#b59357]/20 border border-[#b59357]/40 flex items-center justify-center text-[#b59357]">
+                  <Play className="w-3.5 h-3.5 fill-[#b59357]" />
+                </div>
+                <div>
+                  <span className="text-[8.5px] uppercase tracking-wider text-slate-400 block font-mono">Portfolio</span>
+                  <span className="text-[11px] font-bold text-white">$150M+ Scope</span>
+                </div>
+              </div>
+
+              {/* Floating Pill Right */}
+              <div className="absolute top-[38%] -right-2 sm:-right-5 z-20 px-3.5 py-2 rounded-xl bg-white/[0.07] border border-white/15 backdrop-blur-md shadow-2xl flex items-center gap-2.5 transform rotate-6 pointer-events-none">
+                <div className="w-7 h-7 rounded-lg bg-amber-500/20 border border-amber-400/40 flex items-center justify-center text-[#b59357]">
+                  <TrendingUp className="w-3.5 h-3.5" />
+                </div>
+                <div>
+                  <span className="text-[8.5px] uppercase tracking-wider text-slate-400 block font-mono">Track Record</span>
+                  <span className="text-[11px] font-bold text-white">Est. 2015</span>
+                </div>
+              </div>
+
             </div>
           </div>
 
@@ -116,3 +189,5 @@ export const Hero: React.FC = () => {
     </section>
   );
 };
+
+

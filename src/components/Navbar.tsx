@@ -68,23 +68,23 @@ export const Navbar: React.FC = () => {
         </div>
       </div>
 
-      {/* Main Spacious Navigation Bar */}
+      {/* Main Navigation Bar */}
       <div
         className={`transition-all duration-300 ${
           isScrolled
-            ? "bg-[#0a111a]/95 backdrop-blur-md shadow-2xl py-4 border-b border-slate-800"
-            : "bg-[#0e1726] py-5 border-b border-slate-800/80"
+            ? "bg-[#0a111a]/95 backdrop-blur-md shadow-2xl py-2.5 border-b border-slate-800"
+            : "bg-[#0e1726] py-3 border-b border-slate-800/80"
         }`}
       >
         <div className="max-w-[1500px] mx-auto px-6 sm:px-10 lg:px-14 flex items-center justify-between">
           
           {/* Brand Logo & Descriptor */}
-          <Link href="/" className="flex items-center group py-1">
+          <Link href="/" className="flex items-center group py-0.5">
             <div className="flex items-center">
               {/* Seamless Dark-Mode High-Clarity Logo */}
               <div
                 className={`relative flex items-center transition-all duration-300 ease-out origin-left ${
-                  isScrolled ? "h-11 sm:h-12" : "h-16 sm:h-20"
+                  isScrolled ? "h-9 sm:h-10" : "h-11 sm:h-13"
                 }`}
               >
                 <img
