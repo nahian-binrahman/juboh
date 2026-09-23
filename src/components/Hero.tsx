@@ -150,18 +150,16 @@ export const Hero: React.FC = () => {
                 </div>
               </div>
 
-              {/* Layer 2: Main Subject Portrait */}
-              <div className="relative z-10 w-[84%] sm:w-[82%] xl:w-[85%] h-[98%] flex items-end transform -translate-y-1 sm:-translate-y-4">
-                <div className="relative w-full h-full overflow-hidden">
+              {/* Layer 2: Main Subject Portrait (Transparent Cutout Blend) */}
+              <div className="relative z-10 w-[88%] sm:w-[86%] xl:w-[88%] h-[98%] flex items-end transform -translate-y-1 sm:-translate-y-3">
+                <div className="relative w-full h-full">
                   <img
                     src={hero.portraitUrl}
                     alt={hero.founderName}
-                    className="w-full h-full object-cover object-top filter grayscale-[5%] drop-shadow-[0_10px_35px_rgba(0,0,0,0.8)]"
+                    className="w-full h-full object-contain object-bottom filter drop-shadow-[0_15px_30px_rgba(0,0,0,0.85)]"
                   />
-                  {/* Seamless Bottom Gradient Fade into Dark Base */}
-                  <div className="absolute inset-x-0 bottom-0 h-32 sm:h-36 bg-gradient-to-t from-[#070b14] via-[#070b14]/85 to-transparent" />
-                  <div className="absolute inset-y-0 left-0 w-10 sm:w-14 bg-gradient-to-r from-[#070b14]/60 to-transparent" />
-                  <div className="absolute inset-y-0 right-0 w-10 sm:w-14 bg-gradient-to-l from-[#070b14]/60 to-transparent" />
+                  {/* Subtle Bottom Fade to Anchor Silhouette */}
+                  <div className="absolute inset-x-0 bottom-0 h-24 sm:h-28 bg-gradient-to-t from-[#070b14] via-[#070b14]/75 to-transparent pointer-events-none" />
 
                   {/* Name badge */}
                   <div className="absolute bottom-3 sm:bottom-4 right-3 sm:right-4 text-right bg-[#070b14]/85 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-sm border border-slate-700/70 backdrop-blur-md">
