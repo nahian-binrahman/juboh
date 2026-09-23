@@ -109,13 +109,13 @@ export const Hero: React.FC = () => {
             <div className="relative w-full max-w-[340px] sm:max-w-[460px] lg:max-w-[540px] h-full flex items-end justify-center">
               
               {/* Layer 1: Gallery Cards Wall in Dark Background */}
-              <div className="absolute top-0 inset-x-0 flex justify-between gap-2.5 sm:gap-3.5 px-2 h-[84%] pointer-events-none opacity-50 sm:opacity-60">
-                {/* Background Card 1 */}
-                <div className="flex-1 rounded-sm border border-slate-700/70 bg-[#0e1624] overflow-hidden relative shadow-2xl transform -rotate-3 -translate-y-2 sm:-translate-y-3">
+              <div className="absolute top-0 inset-x-0 flex justify-between gap-3 sm:gap-4 px-1 sm:px-2 h-[86%] pointer-events-none opacity-55 sm:opacity-65">
+                {/* Background Card 1 (Left - Rotated More) */}
+                <div className="flex-1 rounded-sm border border-slate-700/80 bg-[#0e1624] overflow-hidden relative shadow-2xl transform -rotate-6 sm:-rotate-7 -translate-y-3 sm:-translate-y-4 -translate-x-1 sm:-translate-x-2">
                   <img
                     src="/jalen-anika.png"
                     alt="Leadership"
-                    className="w-full h-full object-cover filter grayscale contrast-125 opacity-45"
+                    className="w-full h-full object-cover filter grayscale contrast-125 opacity-50"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#070b14] via-[#070b14]/50 to-transparent" />
                   <span className="absolute bottom-2 left-2 text-[7px] sm:text-[8px] font-mono uppercase tracking-widest text-slate-300">
@@ -123,12 +123,12 @@ export const Hero: React.FC = () => {
                   </span>
                 </div>
 
-                {/* Background Card 2 */}
+                {/* Background Card 2 (Center Anchor) */}
                 <div className="flex-1 rounded-sm border border-[#b59357]/40 bg-[#0e1624] overflow-hidden relative shadow-2xl transform -translate-y-4 sm:-translate-y-5 scale-105">
                   <img
                     src="/jalen-uboh.jpg"
                     alt="Chairman"
-                    className="w-full h-full object-cover filter grayscale contrast-125 opacity-45"
+                    className="w-full h-full object-cover filter grayscale contrast-125 opacity-40"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#070b14] via-[#070b14]/50 to-transparent" />
                   <span className="absolute bottom-2 left-2 text-[7px] sm:text-[8px] font-mono uppercase tracking-widest text-[#b59357]">
@@ -136,12 +136,12 @@ export const Hero: React.FC = () => {
                   </span>
                 </div>
 
-                {/* Background Card 3 */}
-                <div className="flex-1 rounded-sm border border-amber-600/40 bg-[#0e1624] overflow-hidden relative shadow-2xl transform rotate-3 -translate-y-2 sm:-translate-y-3">
+                {/* Background Card 3 (Right - Rotated More) */}
+                <div className="flex-1 rounded-sm border border-amber-600/40 bg-[#0e1624] overflow-hidden relative shadow-2xl transform rotate-6 sm:rotate-7 -translate-y-3 sm:-translate-y-4 translate-x-1 sm:translate-x-2">
                   <img
                     src="/jalen-uboh.jpg"
                     alt="Enterprise"
-                    className="w-full h-full object-cover filter grayscale contrast-125 opacity-45"
+                    className="w-full h-full object-cover filter grayscale contrast-125 opacity-50"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#070b14] via-[#070b14]/50 to-transparent" />
                   <span className="absolute bottom-2 right-2 text-[7px] sm:text-[8px] font-mono uppercase tracking-widest text-slate-300">
