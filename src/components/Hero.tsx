@@ -10,16 +10,16 @@ export const Hero: React.FC = () => {
 
   return (
     <section className="relative bg-[#070b14] text-white pt-[100px] sm:pt-[115px] pb-8 sm:pb-6 border-b border-slate-800/80 overflow-hidden min-h-[calc(100vh-60px)] lg:h-[calc(100vh)] flex items-center">
-      {/* Background Corporate City Skyline (High Opacity Vivid Presentation) */}
+      {/* Background Corporate City Skyline (Balanced Opacity Presentation) */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
         <img
           src="/corporate-skyline.jpg"
           alt="Corporate City Skyline"
-          className="w-full h-full object-cover object-center sm:object-[center_25%] opacity-65 sm:opacity-75 filter contrast-125 saturate-125 brightness-90"
+          className="w-full h-full object-cover object-center sm:object-[center_25%] opacity-45 sm:opacity-55 filter contrast-120 saturate-115 brightness-85"
         />
         {/* Balanced luxury darkening only where needed for text legibility */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#070b14] via-[#070b14]/40 to-[#070b14]/50" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#070b14]/80 via-[#070b14]/35 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#070b14] via-[#070b14]/45 to-[#070b14]/55" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#070b14]/85 via-[#070b14]/40 to-transparent" />
       </div>
 
       {/* Ambient background lighting */}
