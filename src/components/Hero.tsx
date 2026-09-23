@@ -10,16 +10,21 @@ export const Hero: React.FC = () => {
 
   return (
     <section className="relative bg-[#070b14] text-white pt-[100px] sm:pt-[115px] pb-8 sm:pb-6 border-b border-slate-800/80 overflow-hidden min-h-[calc(100vh-60px)] lg:h-[calc(100vh)] flex items-center">
-      {/* Background Corporate City Skyline (Subtle Low Opacity Presentation) */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
+      {/* Background Corporate City Skyline (Fades right-to-left: 0% behind texts, visible on right) */}
+      <div
+        className="absolute inset-0 pointer-events-none overflow-hidden z-0"
+        style={{
+          maskImage: "linear-gradient(to right, transparent 0%, transparent 30%, rgba(0,0,0,0.2) 48%, rgba(0,0,0,0.85) 75%, black 100%)",
+          WebkitMaskImage: "linear-gradient(to right, transparent 0%, transparent 30%, rgba(0,0,0,0.2) 48%, rgba(0,0,0,0.85) 75%, black 100%)",
+        }}
+      >
         <img
           src="/corporate-skyline.jpg"
           alt="Corporate City Skyline"
-          className="w-full h-full object-cover object-center sm:object-[center_25%] opacity-25 sm:opacity-30 filter contrast-120 saturate-110 brightness-80"
+          className="w-full h-full object-cover object-center sm:object-[center_25%] opacity-50 sm:opacity-60 filter contrast-125 saturate-120 brightness-90"
         />
-        {/* Soft luxury darkening for seamless blending */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#070b14] via-[#070b14]/50 to-[#070b14]/60" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#070b14]/85 via-[#070b14]/45 to-transparent" />
+        {/* Soft luxury vertical darkening */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#070b14] via-transparent to-[#070b14]/60" />
       </div>
 
       {/* Ambient background lighting */}
