@@ -21,13 +21,12 @@ export const Footer: React.FC = () => {
           
           {/* Column 1: Brand & Positioning (5 cols) */}
           <div className="md:col-span-5 space-y-4">
-            <div className="border-l-2 border-[#b59357] pl-3">
-              <span className="font-serif text-xl font-bold tracking-wider text-white block">
-                {siteData.brand.name}
-              </span>
-              <span className="text-[9px] uppercase tracking-[0.25em] text-[#b59357] font-semibold block mt-0.5">
-                {siteData.brand.tagline}
-              </span>
+            <div className="flex items-center">
+              <img
+                src="/juboh-logo-transparent.png"
+                alt="JUBOH Companies"
+                className="h-16 sm:h-20 w-auto object-contain drop-shadow-[0_2px_12px_rgba(181,147,87,0.2)]"
+              />
             </div>
             <p className="text-slate-400 text-xs leading-relaxed max-w-sm">
               Building an Exceptional Future, Together. A privately held enterprise advancing real estate development, capital strategy, public infrastructure, and philanthropic initiatives.

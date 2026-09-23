@@ -79,16 +79,22 @@ export const Navbar: React.FC = () => {
         <div className="max-w-[1500px] mx-auto px-6 sm:px-10 lg:px-14 flex items-center justify-between">
           
           {/* Brand Logo & Descriptor */}
-          <a href="#" className="flex items-center gap-4 group">
-            <div className="border-l-[3px] border-[#b59357] pl-3.5 py-0.5">
-              <span className="font-serif text-2xl sm:text-3xl font-bold tracking-[0.08em] text-white block leading-none group-hover:text-[#b59357] transition-colors">
-                {siteData.brand.name}
-              </span>
-              <span className="text-[9.5px] uppercase tracking-[0.28em] text-[#b59357] font-sans font-semibold block mt-1">
-                {siteData.brand.tagline}
-              </span>
+          <Link href="/" className="flex items-center group py-1">
+            <div className="flex items-center">
+              {/* Seamless Dark-Mode High-Clarity Logo */}
+              <div
+                className={`relative flex items-center transition-all duration-300 ease-out origin-left ${
+                  isScrolled ? "h-11 sm:h-12" : "h-16 sm:h-20"
+                }`}
+              >
+                <img
+                  src="/juboh-logo-transparent.png"
+                  alt="JUBOH Companies"
+                  className="h-full w-auto object-contain transition-all duration-300 drop-shadow-[0_2px_14px_rgba(181,147,87,0.25)] group-hover:scale-[1.02]"
+                />
+              </div>
             </div>
-          </a>
+          </Link>
 
           {/* Desktop Navigation with Generous Spacing (Not Compact!) */}
           <nav className="hidden lg:flex items-center gap-8 xl:gap-11 text-[13px] uppercase tracking-[0.18em] font-medium text-slate-200">
