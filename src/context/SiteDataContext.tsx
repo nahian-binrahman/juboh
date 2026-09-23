@@ -49,33 +49,65 @@ export const SiteDataProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const [siteData, setSiteData] = useState<SiteData>(defaultSiteData);
   const [isLoaded, setIsLoaded] = useState(false);
 
-  // Load from localStorage on client mount
+  // Load from Server API on mount (fallback to localStorage/defaults)
   useEffect(() => {
-    try {
-      const stored = localStorage.getItem(STORAGE_KEY);
-      if (stored) {
-        const parsed = JSON.parse(stored);
-        // Merge with defaults in case of missing keys
-        setSiteData((prev) => ({
-          ...prev,
-          ...parsed,
-          brand: { ...prev.brand, ...(parsed.brand || {}) },
-          colors: { ...prev.colors, ...(parsed.colors || {}) },
-          hero: { ...prev.hero, ...(parsed.hero || {}) },
-        }));
+    async function loadData() {
+      try {
+        const res = await fetch("/api/site-data", { cache: "no-store" });
+        if (res.ok) {
+          const serverData = await res.json();
+          if (serverData && typeof serverData === "object") {
+            setSiteData((prev) => ({
+              ...prev,
+              ...serverData,
+              brand: { ...prev.brand, ...(serverData.brand || {}) },
+              colors: { ...prev.colors, ...(serverData.colors || {}) },
+              hero: { ...prev.hero, ...(serverData.hero || {}) },
+            }));
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(serverData));
+            setIsLoaded(true);
+            return;
+          }
+        }
+      } catch (err) {
+        console.warn("Could not fetch server site data, trying localStorage:", err);
       }
-    } catch (e) {
-      console.warn("Failed to load custom site data from localStorage:", e);
-    } finally {
-      setIsLoaded(true);
+
+      // Fallback to localStorage
+      try {
+        const stored = localStorage.getItem(STORAGE_KEY);
+        if (stored) {
+          const parsed = JSON.parse(stored);
+          setSiteData((prev) => ({
+            ...prev,
+            ...parsed,
+            brand: { ...prev.brand, ...(parsed.brand || {}) },
+            colors: { ...prev.colors, ...(parsed.colors || {}) },
+            hero: { ...prev.hero, ...(parsed.hero || {}) },
+          }));
+        }
+      } catch (e) {
+        console.warn("Failed to load custom site data from localStorage:", e);
+      } finally {
+        setIsLoaded(true);
+      }
     }
+
+    loadData();
   }, []);
 
-  // Save changes to localStorage & inject CSS variables
+  // Save changes to server API, localStorage & inject CSS variables
   useEffect(() => {
     if (!isLoaded) return;
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(siteData));
+
+      // Asynchronously sync to server JSON file
+      fetch("/api/site-data", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(siteData),
+      }).catch((err) => console.error("Server sync error:", err));
 
       // Inject CSS variables for colors
       const root = document.documentElement;

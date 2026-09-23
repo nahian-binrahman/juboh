@@ -98,11 +98,37 @@ export default function AdminDashboardPage() {
     setPasswordInput("");
   };
 
+  const [uploadingImage, setUploadingImage] = useState(false);
+
   const triggerToast = (msg: string) => {
     setToastMessage(msg);
     setTimeout(() => {
       setToastMessage("");
     }, 3000);
+  };
+
+  const handleFileUpload = async (file: File, onSuccess: (url: string) => void) => {
+    try {
+      setUploadingImage(true);
+      const formData = new FormData();
+      formData.append("file", file);
+      const res = await fetch("/api/upload", {
+        method: "POST",
+        body: formData,
+      });
+      const data = await res.json();
+      if (data.success && data.url) {
+        onSuccess(data.url);
+        triggerToast("Image uploaded successfully & synced to live server!");
+      } else {
+        alert("Upload error: " + (data.error || "Failed to upload image"));
+      }
+    } catch (err) {
+      console.error("Upload error:", err);
+      alert("Failed to upload image file");
+    } finally {
+      setUploadingImage(false);
+    }
   };
 
   if (!isLoaded) {
@@ -217,8 +243,21 @@ export default function AdminDashboardPage() {
             </Link>
 
             <button
-              onClick={() => {
-                triggerToast("All changes saved and synchronized to live site!");
+              onClick={async () => {
+                try {
+                  const res = await fetch("/api/site-data", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(siteData),
+                  });
+                  if (res.ok) {
+                    triggerToast("All changes saved & live for all visitors & incognito!");
+                  } else {
+                    triggerToast("Saved locally, server returned an issue.");
+                  }
+                } catch (e) {
+                  triggerToast("Saved to browser session.");
+                }
               }}
               className="px-4 py-2 bg-[#b59357] text-[#0e1726] hover:bg-[#c9a769] text-xs font-bold uppercase tracking-wider rounded-sm flex items-center gap-1.5 shadow transition-all"
             >
@@ -774,6 +813,52 @@ export default function AdminDashboardPage() {
                       onChange={(e) => updateHero({ ctaSecondaryText: e.target.value })}
                       className="w-full px-3 py-2 bg-[#070c14] border border-slate-700 rounded text-xs text-white"
                     />
+                  </div>
+                </div>
+
+                {/* Hero Founder Portrait Image Upload */}
+                <div className="pt-4 border-t border-slate-800">
+                  <label className="block text-xs uppercase tracking-wider text-[#b59357] font-semibold mb-2">
+                    Hero Founder Portrait Photo
+                  </label>
+                  <div className="bg-[#131f31] border border-slate-700/80 p-4 rounded flex flex-col sm:flex-row items-center gap-4">
+                    <img
+                      src={siteData.hero.portraitUrl}
+                      alt={siteData.hero.founderName}
+                      className="w-20 h-24 object-cover object-top rounded border border-slate-600 bg-slate-900 shadow"
+                    />
+                    <div className="flex-1 space-y-2 w-full">
+                      <div className="flex gap-2">
+                        <input
+                          type="text"
+                          value={siteData.hero.portraitUrl}
+                          onChange={(e) => updateHero({ portraitUrl: e.target.value })}
+                          placeholder="Image URL or upload file below..."
+                          className="flex-1 px-3 py-2 bg-[#070c14] border border-slate-700 rounded text-xs text-white font-mono"
+                        />
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <label className="cursor-pointer px-4 py-2 bg-[#b59357] hover:bg-[#c9a769] text-[#070c14] font-bold text-xs uppercase tracking-wider rounded inline-flex items-center gap-1.5 transition-all">
+                          <Upload className="w-3.5 h-3.5" />
+                          <span>{uploadingImage ? "Uploading..." : "Upload New Photo From Computer"}</span>
+                          <input
+                            type="file"
+                            accept="image/*"
+                            disabled={uploadingImage}
+                            className="hidden"
+                            onChange={(e) => {
+                              const file = e.target.files?.[0];
+                              if (file) {
+                                handleFileUpload(file, (url) => {
+                                  updateHero({ portraitUrl: url });
+                                });
+                              }
+                            }}
+                          />
+                        </label>
+                        <span className="text-[11px] text-slate-400">JPG, PNG, or WEBP (Saved permanently to server)</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -1507,17 +1592,39 @@ export default function AdminDashboardPage() {
                         />
                       </div>
                       <div>
-                        <label className="block text-[10px] text-slate-500 uppercase mb-1">Portrait Image URL</label>
-                        <input
-                          type="text"
-                          value={lead.portraitUrl}
-                          onChange={(e) => {
-                            const updated = [...siteData.leadership];
-                            updated[idx].portraitUrl = e.target.value;
-                            updateLeadership(updated);
-                          }}
-                          className="w-full px-2 py-1 bg-[#070c14] border border-slate-700 rounded text-xs text-slate-300 font-mono"
-                        />
+                        <label className="block text-[10px] text-slate-500 uppercase mb-1">Portrait Image</label>
+                        <div className="flex gap-2 items-center">
+                          <input
+                            type="text"
+                            value={lead.portraitUrl}
+                            onChange={(e) => {
+                              const updated = [...siteData.leadership];
+                              updated[idx].portraitUrl = e.target.value;
+                              updateLeadership(updated);
+                            }}
+                            className="flex-1 px-2 py-1 bg-[#070c14] border border-slate-700 rounded text-xs text-slate-300 font-mono"
+                          />
+                          <label className="cursor-pointer px-2.5 py-1 bg-[#b59357] hover:bg-[#c9a769] text-[#070c14] font-bold text-[10px] uppercase rounded flex items-center gap-1 shrink-0">
+                            <Upload className="w-3 h-3" />
+                            <span>Upload</span>
+                            <input
+                              type="file"
+                              accept="image/*"
+                              disabled={uploadingImage}
+                              className="hidden"
+                              onChange={(e) => {
+                                const file = e.target.files?.[0];
+                                if (file) {
+                                  handleFileUpload(file, (url) => {
+                                    const updated = [...siteData.leadership];
+                                    updated[idx].portraitUrl = url;
+                                    updateLeadership(updated);
+                                  });
+                                }
+                              }}
+                            />
+                          </label>
+                        </div>
                       </div>
                     </div>
 
@@ -1598,38 +1705,33 @@ export default function AdminDashboardPage() {
                   </div>
                 </div>
 
-                {/* Local File Upload */}
+                {/* Server File Upload */}
                 <div className="pt-3 border-t border-slate-800/80 flex items-center gap-3">
-                  <label className="cursor-pointer px-4 py-2 bg-[#070c14] border border-slate-700 hover:border-slate-500 rounded text-xs text-slate-300 flex items-center gap-2">
-                    <Upload className="w-3.5 h-3.5 text-[#b59357]" />
-                    <span>Upload Image from Computer</span>
+                  <label className="cursor-pointer px-4 py-2 bg-[#b59357] hover:bg-[#c9a769] text-[#070c14] font-bold rounded text-xs flex items-center gap-2 transition-all">
+                    <Upload className="w-3.5 h-3.5" />
+                    <span>{uploadingImage ? "Uploading..." : "Upload Image to Server"}</span>
                     <input
                       type="file"
                       accept="image/*"
+                      disabled={uploadingImage}
                       className="hidden"
                       onChange={(e) => {
                         const file = e.target.files?.[0];
                         if (file) {
-                          const reader = new FileReader();
-                          reader.onload = (uploadEvent) => {
-                            const result = uploadEvent.target?.result as string;
-                            if (result) {
-                              addMediaItem({
-                                title: file.name,
-                                url: result,
-                                category: "general",
-                                alt: file.name,
-                              });
-                              triggerToast(`Uploaded ${file.name}!`);
-                            }
-                          };
-                          reader.readAsDataURL(file);
+                          handleFileUpload(file, (url) => {
+                            addMediaItem({
+                              title: file.name,
+                              url: url,
+                              category: "general",
+                              alt: file.name,
+                            });
+                          });
                         }
                       }}
                     />
                   </label>
-                  <span className="text-[11px] text-slate-500">
-                    Supports JPG, PNG, WEBP.
+                  <span className="text-[11px] text-slate-400">
+                    Uploaded directly to server storage (/public/uploads) — visible to all visitors & incognito.
                   </span>
                 </div>
               </div>
